@@ -15,9 +15,20 @@ class AlbumAffterController extends Controller
         AlbumAffter::truncate();
 
         foreach ($items as $sort => $item) {
+            $image = $item['image'] ?? '';
+            $before = $item['before'] ?? '';
+            $after = $item['after'] ?? '';
+
+            if (!$after && $image) {
+                $after = $image;
+            }
+            if (!$before && $image) {
+                $before = $image;
+            }
+
             AlbumAffter::create([
-                'before' => $item['before'] ?? '',
-                'after'  => $item['after']  ?? '',
+                'before' => $before,
+                'after'  => $after,
                 'title'  => $item['title']  ?? '',
                 'status' => $item['status'] ?? 1,
                 'sort'   => $item['sort']   ?? $sort,
@@ -29,7 +40,10 @@ class AlbumAffterController extends Controller
 
     public function listAlbumAfftero()
     {
-        $data = AlbumAffter::orderBy('sort')->orderBy('id')->get();
+        $data = AlbumAffter::orderBy('sort')->orderBy('id')->get()->map(function ($item) {
+            $item->image = $item->after ?: $item->before;
+            return $item;
+        });
 
         return response()->json([
             'message' => 'success',

@@ -5,17 +5,11 @@
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-
-            <before-after-upload
-              v-model="pairs"
-              title="album-affter"
-              :show-title="true"
-            />
-
-            <div style="margin-top: 16px;">
-              <vs-button color="primary" @click="save">Lưu</vs-button>
+            <div class="form-group">
+              <label>Danh sách ảnh</label>
+              <ImageMulti v-model="images" :title="'album-affter'" />
             </div>
-
+            <vs-button color="primary" @click="save">Lưu</vs-button>
           </div>
         </div>
       </div>
@@ -25,12 +19,17 @@
 
 <script>
 import { mapActions } from 'vuex';
+import ImageMulti from '../_common/upload_image_multi';
+
 export default {
   name: 'albumAffter',
   data() {
     return {
-      pairs: [],
+      images: [],
     };
+  },
+  components: {
+    ImageMulti,
   },
   methods: {
     ...mapActions(['saveAlbumAffter', 'listAlbumAffter', 'loadings']),
@@ -39,31 +38,21 @@ export default {
       this.listAlbumAffter().then(response => {
         this.loadings(false);
         const data = response.data || [];
-        if (data.length) {
-          // Nếu dữ liệu cũ lưu dạng { image, name, link, status }
-          // thì map sang dạng { before, after, title, status }
-          this.pairs = data.map((item, i) => {
-            if (item.before !== undefined || item.after !== undefined) {
-              return item; // đã đúng định dạng before/after
-            }
-            // chuyển đổi định dạng cũ
-            return {
-              before: item.image || '',
-              after:  '',
-              title:  item.name  || '',
-              status: item.status != null ? item.status : 1,
-              uid:    `pair-index-${i}`,
-            };
-          });
-        } else {
-          this.pairs = [];
-        }
+        this.images = data
+          .map(item => item.image || item.after || item.before || '')
+          .filter(Boolean);
       }).catch(() => { this.loadings(false); });
     },
     save() {
       this.loadings(true);
-      // Lưu dưới dạng mảng before/after pairs
-      this.saveAlbumAffter({ data: this.pairs }).then(() => {
+      const payload = (this.images || []).map((image, index) => ({
+        image: image || '',
+        title: '',
+        status: 1,
+        sort: index,
+      }));
+
+      this.saveAlbumAffter({ data: payload }).then(() => {
         this.loadings(false);
         this.$success('Lưu thành công');
       }).catch(() => {

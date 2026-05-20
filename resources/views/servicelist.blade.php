@@ -91,7 +91,40 @@
     <div class="container container-2">
         <div class="row pin-inner">
             <div class="col-lg-8 col-md-12">
-                <div class="service-details-content scroll-content">
+                @php
+                $projectPairs = [];
+                if (!empty($cateService->image)) {
+                    $decoded = json_decode($cateService->image, true);
+                    if (is_array($decoded)) {
+                        foreach ($decoded as $item) {
+                            if (is_array($item) && !empty($item['before']) && !empty($item['after'])) {
+                                $projectPairs[] = $item;
+                            }
+                        }
+                    }
+                }
+            @endphp
+            <div class="row">
+            @forelse($projectPairs as $pair)
+            
+                <div class="col-lg-6">
+                    <div class="antra-image-comparison fade-top">
+                        <img src="{{ $pair['before'] }}" alt="Before - {{ $cateService->name }}">
+                        <img src="{{ $pair['after'] }}" alt="After - {{ $cateService->name }}">
+                    </div>
+                </div>
+           
+            
+            @empty
+            @php $fallbackImg = firstBeforeAfterImage($cateService->image ?? ''); @endphp
+            @if($fallbackImg)
+            <div class="col-lg-12">
+                <img src="{{ $fallbackImg }}" alt="{{ $cateService->name }}">
+            </div>
+            @endif
+            @endforelse
+        </div>
+                <div class="service-details-content scroll-content mt-5">
                     {!!($cateService->content)!!}
                 </div>
                 <section class="service-inner pt-20 pb-20">

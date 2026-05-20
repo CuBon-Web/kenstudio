@@ -141,7 +141,58 @@
                </div>
            </div>
        </div>
-       <div class="service-carousel swiper fade-top">
+       @foreach ($servicehome as $item)
+       <div class="row mb-5 fade-top">
+     
+        @php
+        $serviceImagesArr = [];
+        $serviceThumb = null;
+        if (!empty($item->image)) {
+            $decoded = json_decode($item->image, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                if (is_array($decoded) && isset($decoded[0])) {
+                    $serviceImagesArr = $decoded;
+                } elseif (is_array($decoded) && (isset($decoded['before']) || isset($decoded['after']))) {
+                    $serviceImagesArr = [$decoded];
+                }
+            } else {
+                // Du lieu cu dang string anh don
+                $serviceThumb = $item->image;
+            }
+        }
+        $serviceFirst = $serviceImagesArr[0] ?? null;
+        if (is_array($serviceFirst)) {
+            $serviceThumb = $serviceFirst['after'] ?? $serviceFirst['before'] ?? $serviceThumb;
+        } elseif (is_string($serviceFirst)) {
+            $serviceThumb = $serviceFirst;
+        }
+    
+        $isEvenKey = ($loop->index % 2) === 0;
+        @endphp
+         <div class="col-lg-6 {{ $isEvenKey ? 'order-lg-1' : 'order-lg-2' }}">
+            <div class="testi-img">
+               @if(is_array($serviceFirst) && !empty($serviceFirst['before']) && !empty($serviceFirst['after']))
+               <div class="antra-image-comparison">
+                   {!! lazy_img($serviceFirst['before'], 'Before - ' . $item->name, ['eager' => true]) !!}
+                   {!! lazy_img($serviceFirst['after'], 'After - ' . $item->name, ['eager' => true]) !!}
+               </div>
+               @elseif($serviceThumb)
+               {!! lazy_img($serviceThumb, $item->name, ['eager' => true]) !!}
+               @endif
+            </div>
+        </div>
+        <div class="col-lg-6 {{ $isEvenKey ? 'order-lg-2' : 'order-lg-1' }}" style="margin: auto">
+           <div class="service-item-2">
+               <h2 class="title-service"><a href="{{route('serviceList',['slug'=>$item->slug])}}">{{ $item->name }}</a></h2>
+              <p>{!! languageName($item->description) !!}</p>
+              <a href="{{route('serviceList',['slug'=>$item->slug])}}" class="btn-service">Detail Service</a>
+          </div>
+        </div>
+        
+         
+     </div>
+     @endforeach
+       {{-- <div class="service-carousel swiper fade-top">
            <div class="swiper-wrapper">
             @foreach($servicehome as $index => $item)
          <div class="swiper-slide">
@@ -160,7 +211,7 @@
            </div>
             @endforeach
            </div>
-       </div>
+       </div> --}}
    </div>
 </section>
 <!-- ./ process-section -->
@@ -454,18 +505,12 @@
    <div class="gallary-wrap wrap-1">
       <div class="gallery-scroll-wrap">
          @forelse($galleryRow1 as $item)
-         <div class="gallary-scroll-item">
-            @if($item->before && $item->after)
-            <div class="antra-image-comparison">
-               {!! lazy_img($item->before, $item->title ?: 'Before') !!}
-               {!! lazy_img($item->after, $item->title ?: 'After') !!}
-            </div>
-            @elseif($item->before)
-            <a href="{{ $item->before }}" class="venobox" data-gall="gallary1">{!! lazy_img($item->before, $item->title) !!}</a>
-            @elseif($item->after)
-            <a href="{{ $item->after }}" class="venobox" data-gall="gallary1">{!! lazy_img($item->after, $item->title) !!}</a>
-            @endif
-         </div>
+        <div class="gallary-scroll-item">
+           @php $galleryImage = $item->after ?: $item->before; @endphp
+           @if($galleryImage)
+           <a href="{{ $galleryImage }}" class="venobox" data-gall="gallary1">{!! lazy_img($galleryImage, $item->title ?: 'Gallery') !!}</a>
+           @endif
+        </div>
          @empty
          <div class="gallary-scroll-item"><a href="{{ r2_asset('frontend/img/project-img-6.png') }}" class="venobox" data-gall="gallary1">@include('partials.img', ['src' => '/frontend/img/project-img-6.png', 'alt' => 'img'])</a></div>
          <div class="gallary-scroll-item"><a href="{{ r2_asset('frontend/img/project-img-7.png') }}" class="venobox" data-gall="gallary1">@include('partials.img', ['src' => '/frontend/img/project-img-7.png', 'alt' => 'img'])</a></div>
@@ -475,18 +520,12 @@
    <div class="gallary-wrap gallery-scroll-direction-ltr">
       <div class="gallery-scroll-wrap align-items-start">
          @forelse($galleryRow2 as $item)
-         <div class="gallary-scroll-item">
-            @if($item->before && $item->after)
-            <div class="antra-image-comparison">
-               {!! lazy_img($item->before, $item->title ?: 'Before') !!}
-               {!! lazy_img($item->after, $item->title ?: 'After') !!}
-            </div>
-            @elseif($item->before)
-            <a href="{{ $item->before }}" class="venobox" data-gall="gallary1">{!! lazy_img($item->before, $item->title) !!}</a>
-            @elseif($item->after)
-            <a href="{{ $item->after }}" class="venobox" data-gall="gallary1">{!! lazy_img($item->after, $item->title) !!}</a>
-            @endif
-         </div>
+        <div class="gallary-scroll-item">
+           @php $galleryImage = $item->after ?: $item->before; @endphp
+           @if($galleryImage)
+           <a href="{{ $galleryImage }}" class="venobox" data-gall="gallary1">{!! lazy_img($galleryImage, $item->title ?: 'Gallery') !!}</a>
+           @endif
+        </div>
          @empty
          <div class="gallary-scroll-item"><a href="{{ r2_asset('frontend/img/project-img-6.png') }}" class="venobox" data-gall="gallary1">@include('partials.img', ['src' => '/frontend/img/project-img-6.png', 'alt' => 'img'])</a></div>
          <div class="gallary-scroll-item"><a href="{{ r2_asset('frontend/img/project-img-7.png') }}" class="venobox" data-gall="gallary1">@include('partials.img', ['src' => '/frontend/img/project-img-7.png', 'alt' => 'img'])</a></div>
@@ -499,7 +538,8 @@
    <div class="container">
       <div class="newsletter-wrap">
          <div class="section-heading text-center fade-top">
-            <h2 class="section-title cursor-effect">Contact for work </h2>
+            <h2 class="section-title cursor-effect">Ready to Elevate Your Real Estate Photography?</h2>
+            <p>Get your first images edited for free.</p>
           </div>
          <form class="newsletter-form newsletter-form--contact fade-top" action="{{ route('postcontact') }}" method="post">
             @csrf
@@ -507,7 +547,7 @@
             <input type="email" name="email" class="form-control" placeholder="Email *" required>
             <input type="tel" name="phone" class="form-control" placeholder="Phone *" required>
             <textarea name="mess" class="form-control" rows="3" placeholder="Message"></textarea>
-            <button type="submit" aria-label="Contact Now">Contact Now <i class="fa-regular fa-arrow-right-long"></i></button>
+            <button type="submit" aria-label="Start Free Trial">Start Free Trial <i class="fa-regular fa-arrow-right-long"></i></button>
          </form>
       </div>
    </div>

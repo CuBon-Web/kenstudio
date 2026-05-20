@@ -14,6 +14,7 @@
 <link rel="dns-prefetch" href="{{ $r2Base }}">
 @endif
 <link rel="stylesheet" href="{{ r2_asset('frontend/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ r2_asset('frontend/css/subfont.css') }}">
 <link rel="stylesheet" href="{{ r2_asset('frontend/css/main.css') }}">
 @foreach($deferStylesheets as $cssFile)
 <link rel="stylesheet" href="{{ r2_asset('frontend/css/' . $cssFile) }}" media="print" onload="this.media='all'">

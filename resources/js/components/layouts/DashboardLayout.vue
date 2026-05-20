@@ -118,14 +118,15 @@ export default {
           name: "Dịch vụ",
           route_name: "",
           sub: [
-            {
-              name: "Danh sách ",
-              path: "/service",
+          {
+              name: "Danh sách ",
+              path: "/service/category",
             },
             {
-              name: "Danh mục ",
-              path: "/service/category",
+              name: "Bài viết trong dịch vụ ",
+              path: "/service",
             }
+            
           ],
         },
         {
@@ -204,7 +205,7 @@ export default {
             },
             {
               name: "Gallery",
-              path: "/album-affter",
+              path: "/albumAffter",
             },
           ],
         },

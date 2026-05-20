@@ -5,7 +5,7 @@
           <div class="card">
             <div class="card-body">
               <div class="row">
-                <div class="col-md-3"><h4 class="card-title">Sửa danh mục sản phẩm</h4></div>
+                <div class="col-md-3"><h4 class="card-title">Sửa danh mục dịch vụ</h4></div>
                 <div class="col-md-6"></div>
                 <div class="col-md-3">
                   </div>
@@ -24,11 +24,11 @@
                 </div>
                 <div class="form-group">
                   <label>Ảnh đại diện</label>
-                  <image-upload
-                    v-model="objData.image"
-                    type="avatar"
+                  <before-after-upload
+                    v-model="compareImage"
                     :title="'danh-muc-dich-vu'"
-                  ></image-upload>
+                    :show-title="false"
+                  />
                 </div>
                 <div class="form-group">
                 <label>Mô tả ngắn</label>
@@ -80,6 +80,12 @@ export default {
         status: "",
         description:""
       },
+      compareImage: [
+        {
+          before: "",
+          after: "",
+        },
+      ],
       lang:[],
       img: "",
       errors:[]
@@ -106,6 +112,15 @@ export default {
     },
     saveEdit() {
       this.errors = [];
+      const pairs = (Array.isArray(this.compareImage) ? this.compareImage : [])
+        .map(pair => ({
+          before: pair.before || "",
+          after: pair.after || "",
+          title: pair.title || "",
+          status: pair.status !== undefined ? pair.status : 1,
+        }))
+        .filter(pair => pair.before || pair.after);
+      this.objData.image = JSON.stringify(pairs);
       if(this.objData.name == '') this.errors.push('Tên danh mục không được để trống');
       if(this.objData.description == '') this.errors.push('Mô tả ngắn không để trống');
       if (this.errors.length > 0) {
@@ -147,9 +162,30 @@ export default {
             content: "",
             image: "",
             status: "",
+            description:"",
           }
+          this.compareImage = [{ before: "", after: "" }];
         }else{
           this.objData = response.data;
+          let parsedPairs = [];
+          try {
+            parsedPairs = JSON.parse(this.objData.image || "[]");
+          } catch (e) {
+            parsedPairs = [];
+          }
+          if (Array.isArray(parsedPairs) && parsedPairs.length) {
+            this.compareImage = parsedPairs.map(pair => ({
+              before: pair.before || "",
+              after: pair.after || "",
+              title: pair.title || "",
+              status: pair.status !== undefined ? pair.status : 1,
+            }));
+          } else {
+            this.compareImage = [{
+              before: this.objData.image || "",
+              after: this.objData.image || "",
+            }];
+          }
         }
       }).catch(error => {
         console.log(12);

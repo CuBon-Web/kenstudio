@@ -150,6 +150,10 @@
                   <label>Logo black</label>
                   <image-upload type="avatar" v-model="objData.logo_footer" :title="'logo'"></image-upload>
                 </div>
+                <div class="form-group">
+                  <label>Bảng giá</label>
+                  <tiny-mce v-model="objData.footer_content"></tiny-mce>
+                </div>
               <vs-button color="primary" @click="saveSetting">Lưu</vs-button>
             </div>
           </div>

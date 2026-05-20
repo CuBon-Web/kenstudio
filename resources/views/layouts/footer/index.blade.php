@@ -20,6 +20,7 @@
                    @foreach ($servicehome as $item)
                    <li><a href="{{route('serviceList',['slug'=>$item->slug])}}">{{languageName($item->name)}}</a></li>
                    @endforeach
+                   <li><a href="{{ route('priceList') }}">Price List</a></li>
                    <li><a href="{{route('lienHe')}}">Contact Us</a></li>
                 </ul>
              </div>

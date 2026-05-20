@@ -74,6 +74,7 @@
                                          @endforeach
                                      </ul>
                                  </li>
+                                 <li><a href="{{ route('priceList') }}">Price List</a></li>
                                  <li><a href="{{ route('lienHe') }}">Contact</a></li>
                              </ul>
                          </div>
@@ -186,15 +187,15 @@
              <ul class="side-menu-list">
                  <li>
                      <i class="fas fa-map-marker-alt"></i>
-                     <p>Valentin, Street Road 24, New York, </p>
+                     <p>{{languageName($setting->address1)}}</p>
                  </li>
                  <li>
                      <i class="fas fa-phone"></i>
-                     <a href="tel:+000123456789">+000 123 (456) 789</a>
+                     <a href="tel:{{$setting->phone1}}">{{$setting->phone1}}</a>
                  </li>
                  <li>
                      <i class="fas fa-envelope-open-text"></i>
-                     <a href="mailto:antra@gmail.com">antra@gmail.com</a>
+                     <a href="mailto:{{$setting->email}}">{{$setting->email}}</a>
                  </li>
              </ul>
          </div>

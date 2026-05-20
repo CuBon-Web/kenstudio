@@ -22,11 +22,11 @@
                 </div>
                 <div class="form-group">
                   <label>Ảnh đại diện</label>
-                  <image-upload
-                    v-model="objData.image"
-                    type="avatar"
+                  <before-after-upload
+                    v-model="compareImage"
                     :title="'danh-muc-dich-vu'"
-                  ></image-upload>
+                    :show-title="false"
+                  />
                 </div>
                 <div class="form-group">
                     <label>Mô tả ngắn</label>
@@ -76,6 +76,12 @@ export default {
         description:"",
         status: 1,
       },
+      compareImage: [
+        {
+          before: "",
+          after: "",
+        },
+      ],
       lang:[],
       img: "",
       errors:[]
@@ -88,6 +94,15 @@ components: {
     ...mapActions(["saveCategoryService","listLanguage", "loadings"]),
     saveEdit() {
       this.errors = [];
+      const pairs = (Array.isArray(this.compareImage) ? this.compareImage : [])
+        .map(pair => ({
+          before: pair.before || "",
+          after: pair.after || "",
+          title: pair.title || "",
+          status: pair.status !== undefined ? pair.status : 1,
+        }))
+        .filter(pair => pair.before || pair.after);
+      this.objData.image = JSON.stringify(pairs);
       if(this.objData.name == '') this.errors.push('Tên danh mục không được để trống');
       if(this.objData.description == '') this.errors.push('Mô tả ngắn không để trống');
       if (this.errors.length > 0) {

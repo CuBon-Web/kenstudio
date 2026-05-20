@@ -294,4 +294,9 @@ class PageController extends Controller
     {
         return view('faq');
     }
+
+    public function priceList()
+    {
+        return view('pricelist');
+    }
 }

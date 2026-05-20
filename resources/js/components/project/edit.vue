@@ -48,7 +48,7 @@
                   />
                 </vs-select>
               </div>
-              <!-- <div class="form-group">
+              <div class="form-group">
                 <label>Vị trí dự án</label>
                 <vs-input
                   type="text"
@@ -77,7 +77,7 @@
                   class="w-100"
                   v-model="objData.operate"
                 />
-              </div> -->
+              </div>
               <div class="form-group">
                 <label>Ảnh bài viết</label>
                 <before-after-upload v-model="objData.images" />

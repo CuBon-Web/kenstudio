@@ -49,6 +49,36 @@
                 </vs-select>
               </div>
               <div class="form-group">
+                <label>Vị trí dự án</label>
+                <vs-input
+                  type="text"
+                  size="default"
+                  placeholder="Vị trí"
+                  class="w-100"
+                  v-model="objData.location"
+                />
+              </div>
+              <div class="form-group">
+                <label>Quy mô dự án</label>
+                <vs-input
+                  type="text"
+                  size="default"
+                  placeholder="5.0MW"
+                  class="w-100"
+                  v-model="objData.scale"
+                />
+              </div>
+              <div class="form-group">
+                <label>Thời điểm vận hành</label>
+                <vs-input
+                  type="text"
+                  size="default"
+                  placeholder="11/2020"
+                  class="w-100"
+                  v-model="objData.operate"
+                />
+              </div>
+              <div class="form-group">
                 <label>Ảnh bài viết</label>
                 <before-after-upload v-model="objData.images" />
               </div>
