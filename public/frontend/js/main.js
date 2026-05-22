@@ -1477,34 +1477,63 @@
     });
 
     if ($(".fade-wrapper").length > 0) {
+      var fadeRevealOffset = Math.min(420, Math.round(window.innerHeight * 0.4));
+
+      function revealFadeTop(element, delay) {
+        if (element._fadeTopRevealed) {
+          return;
+        }
+        element._fadeTopRevealed = true;
+        gsap.to(element, {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          delay: delay || 0,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+      }
+
+      function fadeTopShouldRevealNow(element) {
+        var rect = element.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        return rect.top < vh + fadeRevealOffset && rect.bottom > 0;
+      }
+
       $(".fade-wrapper").each(function () {
         var section = $(this);
-        var fadeItems = section.find(".fade-top");
-
-        fadeItems.each(function (index, element) {
-          var delay = index * 0.1;
+        section.find(".fade-top").each(function (index, element) {
+          var delay = Math.min(index * 0.07, 0.35);
 
           gsap.set(element, {
             opacity: 0,
-            y: 100,
+            y: 48,
           });
+
+          if (fadeTopShouldRevealNow(element)) {
+            revealFadeTop(element, delay);
+            return;
+          }
 
           ScrollTrigger.create({
             trigger: element,
-            start: "top 100%",
-            end: "bottom 20%",
-            scrub: 0.5,
+            start: "top bottom+=" + fadeRevealOffset,
             onEnter: function () {
-              gsap.to(element, {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: delay,
-              });
+              revealFadeTop(element, delay);
             },
             once: true,
+            invalidateOnRefresh: true,
           });
         });
+      });
+
+      $(window).on("load", function () {
+        $(".fade-wrapper .fade-top").each(function (index, element) {
+          if (!element._fadeTopRevealed && fadeTopShouldRevealNow(element)) {
+            revealFadeTop(element, Math.min(index * 0.07, 0.35));
+          }
+        });
+        ScrollTrigger.refresh();
       });
     }
 

@@ -1,6 +1,6 @@
 @extends('layouts.main.master')
 @section('title')
-Về Chúng Tôi
+About Us
 @endsection
 @section('description')
 {{$setting->company}}
@@ -10,29 +10,30 @@ Về Chúng Tôi
 @section('js')
 @endsection
 @section('content')
-<div class="breadcrumb-section">
+<section class="page-header">
+    <div class="bg-img bg-eager" data-background="{{ static_bg('frontend/img/page-header-bg.png') }}"></div>
+    <div class="overlay"></div>
     <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('home')}}">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="">Về Chúng Tôi</a></li>
-            </ol>
-        </nav>
+        <div class="page-header-content">
+            <h1 class="title">About Us</h1>
+            <h4 class="sub-title">
+                <a class='home' href='{{route('home')}}'>Home </a>
+                <span class="icon">-</span>
+				<a class='inner-page' href='{{route('aboutUs')}}'> About Us</a></h4>
+        </div>
     </div>
- </div>
- <div class="blog-details-section mt-60 mb-60">
-    <div class="container">
-        <div class="row g-lg-4 gy-5">
-            <div class="col-lg-12">
-               <div class="blog-content">
-                <h1>{{$setting->company}}</h1>
+</section>
+
+<section class="blog-details pt-50 pb-50 overflow-hidden">
+    <div class="container container-2">
+        <div class="row gy-5 pin-inner">
+            <div class="col-lg-12 col-md-12">
                 <div class="content-post">
-                    {!!($gioithieu->content)!!}
+                    {!! $gioithieu->content !!}
                 </div>
-               </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 @endsection

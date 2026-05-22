@@ -21,7 +21,7 @@
 @section('content')
 @include('partials.home-slider')
 <section class="about-section-4 pt-60 pb-130 fade-wrapper tl-bg-color">
-   <div class="container container-2">
+   <div class="container container">
        <div class="row section-heading-wrap fade-top">  
            <div class="shape">@include('partials.img', ['src' => '/frontend/img/section-heading.png', 'alt' => 'shape'])</div>
            <div class="col-lg-4 col-md-12">
@@ -32,7 +32,8 @@
            <div class="col-lg-8 col-md-12">
                <div class="section-heading section-heading-2 mb-0">
                    <h2 class="section-title cursor-effect title-2">{{$setting->company}}</h2>
-                   <div class="mb-0 line_6">{!! $gioithieu->description !!}</div>
+                   <div class="mb-0">{!! $gioithieu->description !!}</div>
+                   <a href="{{ route('aboutUs') }}" class="btn-service">Read More</a>
                   </div>
            </div>
        </div>
@@ -62,8 +63,8 @@
    @if(count($gioithieuPairs))
    <div class="row about-item-wrap gy-lg-0 gy-4 fade-wrapper">
        @foreach($gioithieuPairs as $pair)
-       <div class="col-lg-4 col-md-6">
-           <div class="about-item-4 antra-hover-view">
+       <div class="col-lg-6 col-md-6">
+           <div class="about-item-4 antra-hover-view mb-4">
                <div class="antra-image-comparison">
                    {!! lazy_img($pair['before'], $pair['title'] ?? 'Before') !!}
                    {!! lazy_img($pair['after'], $pair['title'] ?? 'After') !!}
@@ -81,7 +82,7 @@
 </section>
 <section class="service-section-5 pt-50 pb-50 fade-wrapper">
    <div class="bg-img" data-background="{{ static_bg('frontend/img/service-bg-2.png') }}"></div>
-   <div class="container container-2">
+   <div class="container container">
        <div class="row section-heading-wrap fade-top">  
            <div class="shape">@include('partials.img', ['src' => '/frontend/img/section-heading-2.png', 'alt' => 'shape'])</div>
            <div class="col-lg-4 col-md-12">
@@ -127,7 +128,7 @@
 <!-- ./ feature-section -->
 
 <section class="service-section-2 fade-wrapper pt-60 pb-40">
-   <div class="container container-2">
+   <div class="container container">
        <div class="row section-heading-wrap fade-top">  
            <div class="shape">@include('partials.img', ['src' => '/frontend/img/section-heading.png', 'alt' => 'shape'])</div>
            <div class="col-lg-4 col-md-12">
@@ -216,7 +217,7 @@
 </section>
 <!-- ./ process-section -->
 <section class="counter-section pb-20">
-   <div class="container container-2">
+   <div class="container container">
       <div class="row gy-5 fade-wrapper">
          <div class="col-lg-3 col-md-6 fade-top col-6">
             <div class="counter-item">
@@ -248,7 +249,7 @@
 <!-- ./ counter-section -->
 
 <section class="project-section-5 pt-50 pb-50 fade-wrapper tl-bg-color">
-   <div class="container container-2">
+   <div class="container container">
        <div class="row section-heading-wrap fade-top">  
            <div class="shape">@include('partials.img', ['src' => '/frontend/img/section-heading.png', 'alt' => 'shape'])</div>
            <div class="col-lg-4 col-md-12">
@@ -280,9 +281,9 @@
                $pos    = $loop->index % 4;
                // Pattern: index 0 = small, 1 = big, 2 = big, 3 = small ml-a
                if ($pos === 0) {
-                   $itemClass = 'project-item-5 small antra-hover-view';
+                   $itemClass = 'project-item-5 antra-hover-view';
                } elseif ($pos === 3) {
-                   $itemClass = 'project-item-5 small ml-a antra-hover-view';
+                   $itemClass = 'project-item-5 ml-a antra-hover-view';
                } else {
                    $itemClass = 'project-item-5 antra-hover-view';
                }
@@ -321,7 +322,7 @@
 </section>
 <section class="process-section overflow-hidden fade-wrapper">
    <div class="bg-shape" data-background="https://antra.ibthemespro.com/assets/img/shapes/process-shape-1.png"></div>
-   <div class="container container-2">
+   <div class="container container">
       <div class="heading-space align-items-end">
          <div class="section-heading mb-0">
             <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">How We Work</h4>
@@ -373,7 +374,7 @@
 </section>
 <!-- ./ project-section -->
 <section class="testimonial-section pt-60 fade-wrapper">
-   <div class="container container-2">
+   <div class="container container">
       <div class="row section-heading-wrap fade-top">
          <div class="shape">@include('partials.img', ['src' => '/frontend/img/section-heading.png', 'alt' => 'shape'])</div>
          <div class="col-lg-4 col-md-12">
@@ -454,7 +455,7 @@
 
 
 <section class="blog-section pt-60 fade-wrapper tl-bg-color">
-   <div class="container container-2">
+   <div class="container container">
       <div class="row section-heading-wrap fade-top">
          <div class="shape">@include('partials.img', ['src' => '/frontend/img/section-heading.png', 'alt' => 'shape'])</div>
          <div class="col-lg-4 col-md-12">
@@ -533,7 +534,21 @@
       </div>
    </div>
 </div>
-<section class="newsletter-section pb-60 overflow-hidden tl-bg-color fade-wrapper">
+<section class="home-cta-section fade-wrapper">
+   <div class="home-cta-bg" data-background="{{ static_bg('frontend/img/page-header-bg.png') }}"></div>
+   <div class="home-cta-overlay"></div>
+   <div class="container container-2">
+      <div class="home-cta-inner fade-top">
+         <h2 class="home-cta-title">Ready To Elevate Your Property Images?</h2>
+         <p class="home-cta-desc">Get professional real estate photo editing with fast turnaround and consistent handcrafted quality.</p>
+         <div class="home-cta-actions">
+            <a href="{{ route('lienHe') }}" class="home-cta-btn home-cta-btn--primary">Get Started</a>
+            <a href="{{ route('priceList') }}" class="home-cta-btn home-cta-btn--ghost">Free Test Edit</a>
+         </div>
+      </div>
+   </div>
+</section>
+<section id="home-free-trial" class="newsletter-section pb-60 overflow-hidden tl-bg-color fade-wrapper pt-60">
    <div class="bg-shape">@include('partials.img', ['src' => '/frontend/img/newsletter-shape.png', 'alt' => 'shape'])</div>
    <div class="container">
       <div class="newsletter-wrap">
@@ -552,5 +567,6 @@
       </div>
    </div>
 </section>
-<!-- ./ newsletter-section -->
+
+<!-- ./ home-cta-section -->
 @endsection

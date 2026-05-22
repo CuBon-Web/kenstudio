@@ -86,7 +86,7 @@
                         }
                     @endphp
                     @forelse($projectPairs as $pair)
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 mb-4">
                         <div class="antra-image-comparison fade-top">
                             <img src="{{ $pair['before'] }}" alt="Before - {{ $detail->name }}">
                             <img src="{{ $pair['after'] }}" alt="After - {{ $detail->name }}">

@@ -6,24 +6,44 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\Librarys;
 use App\models\MessContact;
+use App\Services\CloudflareImageService;
 
 class AllController extends Controller
 {
+    protected $apiToken;
+    protected $accountId;
+    protected $cloudflareService;
+
+    public function __construct(CloudflareImageService $cloudflareService)
+    {
+        $this->cloudflareService = $cloudflareService;
+    }
     public function uploadImage(Request $request)
     {
-        if($imgAvatar = $request->file('img')){
-            $nameAvatar = $imgAvatar->getClientOriginalName();
-            $fintimg = strpos($nameAvatar, '.jpg');
-            if($fintimg == true){
-                $nameImg = $request->title_post.'-'.rand().'.jpg';
-            }else{
-                $nameImg = $request->title_post.'-'.rand().'.png';
-            }
-            $imgAvatar->move('uploads/images/', $nameImg);
-            return response()->json([
-                'messenge' => 'success',
-                'path' => '/uploads/images/'.$nameImg
-            ],200);
+        // if($imgAvatar = $request->file('img')){
+        //     $nameAvatar = $imgAvatar->getClientOriginalName();
+        //     $fintimg = strpos($nameAvatar, '.jpg');
+        //     if($fintimg == true){
+        //         $nameImg = $request->title_post.'-'.rand().'.jpg';
+        //     }else{
+        //         $nameImg = $request->title_post.'-'.rand().'.png';
+        //     }
+        //     $imgAvatar->move('uploads/images/', $nameImg);
+        //     return response()->json([
+        //         'messenge' => 'success',
+        //         'path' => '/uploads/images/'.$nameImg
+        //     ],200);
+        // }else{
+        //     return response()->json([
+        //         'data' => 'fail'
+        //     ],500);
+        // }
+        if($image = $request->file('img')){
+            $response = $this->cloudflareService->uploadImage($image);
+                return response()->json([
+                    'messenge' => 'success',
+                    'path' =>  $response['result']['variants'][0]
+                ],200);
         }else{
             return response()->json([
                 'data' => 'fail'

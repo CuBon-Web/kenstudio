@@ -26,10 +26,44 @@ use App\models\website\Video;
 use App\Notifications\BillNotification;
 use App\User;
 use Mail;
-use App\Mail\DemoMail;
+use App\Mail\ContactNotificationMail;
 use App\models\ReviewCus;
+use App\models\website\Setting;
+use Illuminate\Support\Facades\Log;
+
 class PageController extends Controller
 {
+    private function getNotificationEmails()
+    {
+        $setting = Setting::first(['email']);
+        if (!$setting || empty($setting->email)) {
+            return [];
+        }
+
+        return collect(explode(',', (string) $setting->email))
+            ->map(function ($email) {
+                return trim($email);
+            })
+            ->filter(function ($email) {
+                return $email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL);
+            })
+            ->values()
+            ->all();
+    }
+
+    private function sendContactNotificationMail(MessContact $contact)
+    {
+        $emails = $this->getNotificationEmails();
+        if (empty($emails)) {
+            Log::warning('Contact notification skipped: settings.email is empty or invalid', [
+                'contact_id' => $contact->id,
+            ]);
+            return;
+        }
+
+        Mail::to($emails)->send(new ContactNotificationMail($contact));
+    }
+
     public function sendmail(Request $request) {
        
     }
@@ -243,6 +277,15 @@ class PageController extends Controller
         $data->service_slug = $request->service_slug ?: null;
         $data->service_cate_slug = $request->service_cate_slug ?: null;
         $data->save();
+
+        try {
+            $this->sendContactNotificationMail($data);
+        } catch (\Exception $e) {
+            Log::error('Contact notification mail failed', [
+                'contact_id' => $data->id,
+                'message' => $e->getMessage(),
+            ]);
+        }
 
         $redirectUrl = $request->redirect_url;
         if ($redirectUrl && strpos($redirectUrl, url('/')) === 0) {

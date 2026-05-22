@@ -38,7 +38,7 @@
                 $duThumb = firstBeforeAfterImage($du->images ?? '');
                 $duLink = route('duanTieuBieuDetail', ['slug' => $du->slug]);
             @endphp
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="project-item antra-hover-view">
                     <div class="project-img">
                         @if(is_array($duFirst) && !empty($duFirst['before']) && !empty($duFirst['after']))

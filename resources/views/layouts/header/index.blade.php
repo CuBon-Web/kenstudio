@@ -47,7 +47,7 @@
                                      <a href="{{ route('home') }}">Home</a>
                                  </li>
                                  <li class="menu-item-has-children">
-                                     <a href="service.html">Services</a>
+                                     <a href="javascript:void(0)">Services</a>
                                      <ul>
                                          @foreach ($servicehome as $item)
                                              <li><a
@@ -57,7 +57,7 @@
                                      </ul>
                                  </li>
                                  <li class="menu-item-has-children">
-                                     <a href="{{ route('duanTieuBieu') }}">Projects</a>
+                                     <a href="javascript:void(0)">Projects</a>
                                      <ul>
                                          @foreach ($projectCate as $item)
                                             <li><a href="{{route('projectCategory',['slug'=>$item->slug])}}">{{($item->name)}}</a></li>
@@ -175,8 +175,8 @@
  <div class="mobile-side-menu">
      <div class="side-menu-content">
          <div class="side-menu-head">
-             <a href="index.html"><img src="https://antra.ibthemespro.com/assets/img/logo/logo-2.png"
-                     alt="logo"></a>
+             <a href="{{route('home')}}"><img src="{{$setting->logo_footer}}"
+                     alt="logo" width="150"></a>
              <button class="mobile-side-menu-close"><i class="fa-regular fa-xmark"></i></button>
          </div>
          <div class="side-menu-wrap"></div>

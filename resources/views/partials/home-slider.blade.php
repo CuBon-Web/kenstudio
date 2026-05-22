@@ -32,7 +32,7 @@
                      <div class="slider-content">
                         @if($slide->title || $slide->description || $slide->link)
                         <div class="section-heading white-content">
-                           <h4 class="sub-heading" data-animation="antra-fadeInDown" data-delay="1000ms" data-duration="1400ms">FAST AND RELIABLE</h4>
+                           <h4 class="sub-heading" data-animation="antra-fadeInDown" data-delay="1000ms" data-duration="1400ms">LUXURY PROPERTY VISUALS</h4>
                            @if($slide->title)
                            <h2 class="section-title cursor-effect" data-animation="antra-fadeInDown" data-delay="1200ms" data-duration="1400ms">{!! $slide->title !!}</h2>
                            @endif
@@ -45,8 +45,9 @@
                            
                            @endif
                            @if($slide->link)
-                           <div class="antra-btn" data-animation="antra-fadeInUp" data-delay="1200ms" data-duration="1400ms">
-                              <a href="{{ $ctaLink }}" class="tl-primary-btn white-btn">Contact Now<span class="icon"><i class="fa-regular fa-arrow-right"></i></span></a>
+                           <div class="antra-btn d-flex gap-2" data-animation="antra-fadeInUp" data-delay="1200ms" data-duration="1400ms">
+                              <a href="{{ route('lienHe') }}" class="tl-primary-btn white-btn">Free Test Edit<span class="icon"><i class="fa-regular fa-arrow-right"></i></span></a>
+                              <a href="{{ $ctaLink }}" target="_blank" class="tl-primary-btn white-btn">View Portfolio<span class="icon"><i class="fa-regular fa-arrow-right"></i></span></a>
                            </div>
                            @endif
                         </div>

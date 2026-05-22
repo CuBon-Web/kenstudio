@@ -108,7 +108,7 @@
             @forelse($projectPairs as $pair)
             
                 <div class="col-lg-6">
-                    <div class="antra-image-comparison fade-top">
+                    <div class="antra-image-comparison fade-top mb-4">
                         <img src="{{ $pair['before'] }}" alt="Before - {{ $cateService->name }}">
                         <img src="{{ $pair['after'] }}" alt="After - {{ $cateService->name }}">
                     </div>

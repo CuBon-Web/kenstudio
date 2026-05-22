@@ -6,7 +6,7 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Tin nhắn trang liên hệ</h4>
-              <vs-table max-items="5" pagination :data="list">
+              <vs-table max-items="20" pagination :data="list">
                 <template slot="thead">
                   <vs-th>ID</vs-th>
                   <vs-th>Tên</vs-th>
