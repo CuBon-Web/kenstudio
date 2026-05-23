@@ -1,7 +1,7 @@
 <footer class="footer-section overflow-hidden">
     <div class="footer-bg" data-background="{{ static_bg('frontend/img/footer-bg.png') }}"></div>
     <div class="footer-shade"></div>
-    <div class="container container-2">
+    <div class="container">
        <div class="row footer-wrap">
           <div class="col-lg-3 col-md-6">
              <div class="footer-widget">

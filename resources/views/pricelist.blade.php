@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </section>
 
 <section class="price-list-section pt-60 pb-80">
-    <div class="container container-2">
+    <div class="container">
         <div class="row section-heading-wrap w-100 ml-0 mb-40">
             <div class="col-lg-4 col-md-12">
                 <div class="section-heading mb-0">

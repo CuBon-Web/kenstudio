@@ -391,7 +391,7 @@
       <div class="row">
          <div class="col-lg-6">
             <div class="testi-img slide-anim" data-delay="0.3" data-offset="100" data-direction="left">
-               @include('partials.img', ['src' => '/frontend/img/process-img-3.png', 'alt' => 'testi'])
+               @include('partials.img', ['src' => '/frontend/img/process-img-3.jpg', 'alt' => 'testi'])
             </div>
          </div>
          <div class="col-lg-6">
@@ -537,7 +537,7 @@
 <section class="home-cta-section fade-wrapper">
    <div class="home-cta-bg" data-background="{{ static_bg('frontend/img/page-header-bg.png') }}"></div>
    <div class="home-cta-overlay"></div>
-   <div class="container container-2">
+   <div class="container">
       <div class="home-cta-inner fade-top">
          <h2 class="home-cta-title">Ready To Elevate Your Property Images?</h2>
          <p class="home-cta-desc">Get professional real estate photo editing with fast turnaround and consistent handcrafted quality.</p>

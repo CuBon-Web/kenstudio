@@ -88,9 +88,9 @@
     </div>
 </section>
 <section class="service-details pt-60 pb-60">
-    <div class="container container-2">
+    <div class="container">
         <div class="row pin-inner">
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-9 col-md-12">
                 @php
                 $projectPairs = [];
                 if (!empty($cateService->image)) {
@@ -128,7 +128,7 @@
                     {!!($cateService->content)!!}
                 </div>
                 <section class="service-inner pt-20 pb-20">
-                    <div class="container container-2">
+                    <div class="container">
                         <div class="row section-heading-wrap fade-top feature-top">  
                             <div class="shape"><img src="{{url('frontend/img/section-heading.png')}}" alt="shape"></div>
                             <div class="col-lg-3 col-md-12">
@@ -164,7 +164,7 @@
                     </div>
                 </section>
             </div>
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-3 col-md-12">
                 <div class="service-details-left-content pin-box">
                     <div class="service-category-list">
                         <h3 class="list-title">Other Services</h3>

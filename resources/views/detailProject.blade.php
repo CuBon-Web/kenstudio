@@ -50,7 +50,7 @@
     </div>
 </section>
 <section class="portfolio-details pt-50 pb-50">
-    <div class="container container-2">
+    <div class="container">
         <div class="project-details-wrap">
             <div class="project-details-meta">
                 <div class="details-meta">

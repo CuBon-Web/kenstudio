@@ -28,7 +28,7 @@ Contact Us
     </div>
 </section>
 <section class="contact-section pt-50 pb-50">
-    <div class="container container-2">
+    <div class="container">
         <div class="row section-heading-wrap w-100 ml-0">  
             <div class="shape"><img src="/frontend/img/section-heading.png" alt="shape"></div>
             <div class="col-lg-4 col-md-12">

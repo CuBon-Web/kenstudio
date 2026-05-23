@@ -131,7 +131,7 @@
     </div>
 </section>
 <section class="blog-section pt-50 pb-50 fade-wrapper">
-    <div class="container container-2">
+    <div class="container">
         <div class="row gy-5 fade-wrapper">
             @foreach ($blog as $item)
             <div class="col-lg-4 col-md-6 fade-top">

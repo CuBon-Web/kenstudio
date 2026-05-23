@@ -139,7 +139,7 @@
 </section>
 
 <section class="blog-details pt-50 pb-50 overflow-hidden">
-    <div class="container container-2">
+    <div class="container">
         <div class="row gy-5 pin-inner">
             <div class="col-lg-8 col-md-12">
                 <div class="blog-details-wrap scroll-content">

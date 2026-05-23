@@ -111,7 +111,7 @@
     </div>
 </section>
 <section class="service-details pt-60 pb-60">
-    <div class="container container-2">
+    <div class="container">
         <div class="row pin-inner">
             <div class="col-lg-8 col-md-12">
                 <div class="service-details-content scroll-content">
