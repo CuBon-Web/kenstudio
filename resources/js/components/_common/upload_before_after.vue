@@ -46,7 +46,11 @@
             :http-request="req => uploadSide(req, pair, 'before')"
             :before-upload="beforeUpload"
           >
-            <div v-if="pair.before" class="pair-preview">
+            <div v-if="pair.beforeUploading" class="pair-placeholder pair-placeholder--loading">
+              <i class="el-icon-loading"></i>
+              <span>Đang tải...</span>
+            </div>
+            <div v-else-if="pair.before" class="pair-preview">
               <img :src="resolveUrl(pair.before)" alt="Before" />
               <span class="pair-preview-tag">Before</span>
               <button
@@ -79,7 +83,11 @@
             :http-request="req => uploadSide(req, pair, 'after')"
             :before-upload="beforeUpload"
           >
-            <div v-if="pair.after" class="pair-preview">
+            <div v-if="pair.afterUploading" class="pair-placeholder pair-placeholder--loading">
+              <i class="el-icon-loading"></i>
+              <span>Đang tải...</span>
+            </div>
+            <div v-else-if="pair.after" class="pair-preview">
               <img :src="resolveUrl(pair.after)" alt="After" />
               <span class="pair-preview-tag">After</span>
               <button
@@ -264,48 +272,77 @@ export default {
       this.emitInput();
     },
     uploadSide(req, pair, side) {
+      const loadingKey = side + "Uploading";
+      this.$set(pair, loadingKey, true);
       this.uploadFile(req.file)
         .then(path => {
           pair[side] = path;
           this.emitInput();
+          if (req.onSuccess) req.onSuccess();
         })
         .catch(() => {
           if (req.onError) req.onError();
+        })
+        .finally(() => {
+          this.$set(pair, loadingKey, false);
         });
     },
+    /** Ảnh < 900KB: upload thẳng, không nén (tránh chờ 10–15s). */
+    prepareFileForUpload(file) {
+      const skipCompressBelow = 900 * 1024;
+      if (file.size <= skipCompressBelow) {
+        return Promise.resolve(file);
+      }
+      return imageCompression(file, {
+        maxSizeMB: 1.2,
+        maxWidthOrHeight: 2560,
+        useWebWorker: file.size > 1.5 * 1024 * 1024,
+        maxIteration: 2,
+        initialQuality: 0.85,
+      });
+    },
+    normalizeUploadPath(path) {
+      if (!path) return "";
+      const base = typeof __ENV__ !== "undefined" && __ENV__.link ? __ENV__.link : "";
+      if (base && path.indexOf(base) === 0) {
+        return path.replace(base, "/");
+      }
+      return path;
+    },
     uploadFile(file) {
-      const options = {
-        maxSizeMB: 3,
-        maxWidthOrHeight: 10000,
-        useWebWorker: true,
-        maxIteration: 10,
-      };
       this.loading = true;
-      return imageCompression(file, options).then(res => {
-        return new Promise((resolve, reject) => {
-          const xhr = new XMLHttpRequest();
-          xhr.withCredentials = false;
-          xhr.open("POST", __ENV__.link + "api/upload-image");
-          xhr.onload = () => {
-            this.loading = false;
-            if (xhr.status !== 200) {
-              this.$notify.error({ message: "HTTP Error: " + xhr.status });
-              reject(new Error("HTTP Error"));
-              return;
-            }
-            const json = JSON.parse(xhr.responseText);
-            resolve(json.path.replace(__ENV__.link, "/"));
-          };
-          xhr.onerror = () => {
-            this.loading = false;
-            this.$notify.error({ message: "Upload thất bại" });
-            reject(new Error("Upload failed"));
-          };
-          const formData = new FormData();
-          formData.append("img", res, file.name);
-          formData.append("title_post", this.getslugname(this.title));
-          xhr.send(formData);
+      return this.prepareFileForUpload(file)
+        .then(blob => this.postImageForm(blob, file.name))
+        .finally(() => {
+          this.loading = false;
         });
+    },
+    postImageForm(blob, filename) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open("POST", __ENV__.link + "api/upload-image");
+        xhr.onload = () => {
+          if (xhr.status !== 200) {
+            this.$notify.error({ message: "HTTP Error: " + xhr.status });
+            reject(new Error("HTTP Error"));
+            return;
+          }
+          try {
+            const json = JSON.parse(xhr.responseText);
+            resolve(this.normalizeUploadPath(json.path));
+          } catch (e) {
+            reject(e);
+          }
+        };
+        xhr.onerror = () => {
+          this.$notify.error({ message: "Upload thất bại" });
+          reject(new Error("Upload failed"));
+        };
+        const formData = new FormData();
+        formData.append("img", blob, filename);
+        formData.append("title_post", this.getslugname(this.title));
+        xhr.send(formData);
       });
     },
   },
@@ -426,6 +463,18 @@ export default {
 .pair-placeholder span {
   font-size: 13px;
   color: #909399;
+}
+
+.pair-placeholder--loading {
+  border-color: #409eff;
+  background: #f5f9ff;
+  cursor: wait;
+}
+
+.pair-placeholder--loading i {
+  font-size: 32px;
+  color: #409eff;
+  margin-bottom: 8px;
 }
 
 .pair-preview img {

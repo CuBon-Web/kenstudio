@@ -165,7 +165,7 @@
          </div>
          <ul class="side-menu-social">
              <li class="facebook"><a href="{{$setting->facebook}}"><i class="fab fa-facebook-f"></i></a></li>
-             <li class="instagram"><a href="{{$setting->instagram}}"><i class="fab fa-instagram"></i></a></li>
+             <li class="instagram"><a href="{{ $setting->fbPixel }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
              <li class="twitter"><a href="{{$setting->twitter}}"><i class="fab fa-twitter"></i></a></li>
              <li class="g-plus"><a href="{{$setting->google}}"><i class="fab fa-fab fa-google-plus"></i></a></li>
          </ul>

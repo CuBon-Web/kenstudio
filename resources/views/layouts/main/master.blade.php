@@ -67,8 +67,9 @@
         $whatsappLink = $waDigits ? 'https://wa.me/' . $waDigits : '';
         $messengerLink = !empty($setting->messenger) ? $setting->messenger : '';
         $facebookLink = !empty($setting->facebook) ? $setting->facebook : '';
+        $instagramLink = !empty($setting->fbPixel) ? $setting->fbPixel : '';
         $gmailLink = !empty($setting->email) ? 'mailto:' . $setting->email : '';
-        $hasFloatingContact = $whatsappLink || $messengerLink || $facebookLink || $gmailLink;
+        $hasFloatingContact = $whatsappLink || $messengerLink || $facebookLink || $instagramLink || $gmailLink;
     @endphp
 
  @include('layouts.header.index')
@@ -99,6 +100,12 @@
         <a href="{{ $facebookLink }}" class="floating-contact__item floating-contact__item--facebook" target="_blank" rel="noopener noreferrer" title="Facebook">
             <i class="fab fa-facebook-f"></i>
             <span class="floating-contact__label">Facebook</span>
+        </a>
+        @endif
+        @if($instagramLink)
+        <a href="{{ $instagramLink }}" class="floating-contact__item floating-contact__item--instagram" target="_blank" rel="noopener noreferrer" title="Instagram">
+            <i class="fab fa-instagram"></i>
+            <span class="floating-contact__label">Instagram</span>
         </a>
         @endif
         @if($gmailLink)

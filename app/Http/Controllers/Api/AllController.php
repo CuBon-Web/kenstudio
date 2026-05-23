@@ -20,36 +20,24 @@ class AllController extends Controller
     }
     public function uploadImage(Request $request)
     {
-        // if($imgAvatar = $request->file('img')){
-        //     $nameAvatar = $imgAvatar->getClientOriginalName();
-        //     $fintimg = strpos($nameAvatar, '.jpg');
-        //     if($fintimg == true){
-        //         $nameImg = $request->title_post.'-'.rand().'.jpg';
-        //     }else{
-        //         $nameImg = $request->title_post.'-'.rand().'.png';
-        //     }
-        //     $imgAvatar->move('uploads/images/', $nameImg);
-        //     return response()->json([
-        //         'messenge' => 'success',
-        //         'path' => '/uploads/images/'.$nameImg
-        //     ],200);
-        // }else{
-        //     return response()->json([
-        //         'data' => 'fail'
-        //     ],500);
-        // }
-        if($image = $request->file('img')){
-            $response = $this->cloudflareService->uploadImage($image);
-                return response()->json([
-                    'messenge' => 'success',
-                    'path' =>  $response['result']['variants'][0]
-                ],200);
-        }else{
-            return response()->json([
-                'data' => 'fail'
-            ],500);
+        if (!$request->hasFile('img')) {
+            return response()->json(['data' => 'fail'], 500);
         }
-        
+
+        $image = $request->file('img');
+        $response = $this->cloudflareService->uploadImage($image);
+
+        if (empty($response['success']) || empty($response['result']['variants'][0])) {
+            return response()->json([
+                'data' => 'fail',
+                'errors' => $response['errors'] ?? null,
+            ], 500);
+        }
+
+        return response()->json([
+            'messenge' => 'success',
+            'path' => $response['result']['variants'][0],
+        ], 200);
     }
     public function uploadImageMulti(Request $request)
     {
