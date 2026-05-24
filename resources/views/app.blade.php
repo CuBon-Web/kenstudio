@@ -34,7 +34,7 @@
     </style>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script>
-      window.__ENV__ = window.__ENV || {}; __ENV__.link ='https://kenstudio.azas.vn/';
+      window.__ENV__ = window.__ENV || {}; __ENV__.link ='https://kenvisualworks.com/';
       window.Laravel = {!! 
           json_encode([
               'csrf_token' => csrf_token(),
