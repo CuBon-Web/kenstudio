@@ -30,6 +30,11 @@ Route::get('/sitemaps.xml', 'SitemapController@index');
 Route::get('/sitemaps/static.xml', 'SitemapController@staticPages')->name('sitemap.static');
 Route::get('/sitemaps/blog.xml', 'SitemapController@blog')->name('sitemap.blog');
 Route::get('/sitemaps/product.xml', 'SitemapController@product')->name('sitemap.product');
+Route::get('/sitemaps/service-cate.xml', 'SitemapController@serviceCate')->name('sitemap.serviceCate');
+Route::get('/sitemaps/service.xml', 'SitemapController@service')->name('sitemap.service');
+Route::get('/sitemaps/project-cate.xml', 'SitemapController@projectCate')->name('sitemap.projectCate');
+Route::get('/sitemaps/project.xml', 'SitemapController@project')->name('sitemap.project');
+
 Route::group(['namespace'=>'Client','middleware' => ['checkLanguage']], function(){
     Route::get('get-variant.html','ProductController@getSku')->name('getSku');
     Route::get('type-product/{id}','PageController@typeproduct');

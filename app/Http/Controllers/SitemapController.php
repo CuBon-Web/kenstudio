@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\models\blog\Blog;
 use App\models\product\Product;
+use App\models\Project;
+use App\models\ProjectCate;
+use App\models\Services;
+use App\models\ServiceCate;
 
 class SitemapController extends Controller
 {
@@ -11,6 +15,10 @@ class SitemapController extends Controller
     {
         $blogLastmod = Blog::max('updated_at');
         $productLastmod = Product::max('updated_at');
+        $serviceCateLastmod = ServiceCate::max('updated_at');
+        $serviceLastmod = Services::max('updated_at');
+        $projectCateLastmod = ProjectCate::max('updated_at');
+        $projectLastmod = Project::max('updated_at');
 
         $items = [
             [
@@ -24,6 +32,22 @@ class SitemapController extends Controller
             [
                 'loc' => url('/sitemaps/product.xml'),
                 'lastmod' => $this->toAtomOrNow($productLastmod),
+            ],
+            [
+                'loc' => url('/sitemaps/service-cate.xml'),
+                'lastmod' => $this->toAtomOrNow($serviceCateLastmod),
+            ],
+            [
+                'loc' => url('/sitemaps/service.xml'),
+                'lastmod' => $this->toAtomOrNow($serviceLastmod),
+            ],
+            [
+                'loc' => url('/sitemaps/project-cate.xml'),
+                'lastmod' => $this->toAtomOrNow($projectCateLastmod),
+            ],
+            [
+                'loc' => url('/sitemaps/project.xml'),
+                'lastmod' => $this->toAtomOrNow($projectLastmod),
             ],
         ];
 
@@ -70,6 +94,12 @@ class SitemapController extends Controller
                 'changefreq' => 'monthly',
                 'priority' => '0.6',
             ],
+            [
+                'loc' => route('duanTieuBieu'),
+                'lastmod' => now()->toAtomString(),
+                'changefreq' => 'weekly',
+                'priority' => '0.8',
+            ],
         ];
 
         $xml = view('sitemaps.urlset', compact('urls'))->render();
@@ -86,7 +116,7 @@ class SitemapController extends Controller
 
         $urls = $blogs->map(function ($blog) {
             return [
-                'loc' => route('detailBlog', ['slug' => $blog->slug]),
+                'loc' => route('detailBlog', ['slug' => $this->normalizeSlug($blog->slug)]),
                 'lastmod' => optional($blog->updated_at)->toAtomString(),
                 'changefreq' => 'weekly',
                 'priority' => '0.7',
@@ -122,6 +152,95 @@ class SitemapController extends Controller
         return $this->xmlResponse($xml);
     }
 
+    public function serviceCate()
+    {
+        $categories = ServiceCate::where('status', 1)
+            ->whereNotNull('slug')
+            ->where('slug', '<>', '')
+            ->orderBy('updated_at', 'desc')
+            ->get(['slug', 'updated_at']);
+
+        $urls = $categories->map(function ($cate) {
+            return [
+                'loc' => route('serviceList', ['slug' => $this->normalizeSlug($cate->slug)]),
+                'lastmod' => optional($cate->updated_at)->toAtomString(),
+                'changefreq' => 'weekly',
+                'priority' => '0.8',
+            ];
+        })->values()->all();
+
+        $xml = view('sitemaps.urlset', compact('urls'))->render();
+        return $this->xmlResponse($xml);
+    }
+
+    public function service()
+    {
+        $services = Services::where('status', 1)
+            ->whereNotNull('slug')
+            ->where('slug', '<>', '')
+            ->whereNotNull('cate_slug')
+            ->where('cate_slug', '<>', '')
+            ->orderBy('updated_at', 'desc')
+            ->get(['slug', 'cate_slug', 'updated_at']);
+
+        $urls = $services->map(function ($service) {
+            return [
+                'loc' => route('serviceDetail', [
+                    'danhmuc' => $this->normalizeSlug($service->cate_slug),
+                    'slug' => $this->normalizeSlug($service->slug),
+                ]),
+                'lastmod' => optional($service->updated_at)->toAtomString(),
+                'changefreq' => 'weekly',
+                'priority' => '0.8',
+            ];
+        })->values()->all();
+
+        $xml = view('sitemaps.urlset', compact('urls'))->render();
+        return $this->xmlResponse($xml);
+    }
+
+    public function projectCate()
+    {
+        $categories = ProjectCate::where('status', 1)
+            ->whereNotNull('slug')
+            ->where('slug', '<>', '')
+            ->orderBy('updated_at', 'desc')
+            ->get(['slug', 'updated_at']);
+
+        $urls = $categories->map(function ($cate) {
+            return [
+                'loc' => route('projectCategory', ['slug' => $this->normalizeSlug($cate->slug)]),
+                'lastmod' => optional($cate->updated_at)->toAtomString(),
+                'changefreq' => 'weekly',
+                'priority' => '0.8',
+            ];
+        })->values()->all();
+
+        $xml = view('sitemaps.urlset', compact('urls'))->render();
+        return $this->xmlResponse($xml);
+    }
+
+    public function project()
+    {
+        $projects = Project::where('status', 1)
+            ->whereNotNull('slug')
+            ->where('slug', '<>', '')
+            ->orderBy('updated_at', 'desc')
+            ->get(['slug', 'updated_at']);
+
+        $urls = $projects->map(function ($project) {
+            return [
+                'loc' => route('duanTieuBieuDetail', ['slug' => $this->normalizeSlug($project->slug)]),
+                'lastmod' => optional($project->updated_at)->toAtomString(),
+                'changefreq' => 'weekly',
+                'priority' => '0.8',
+            ];
+        })->values()->all();
+
+        $xml = view('sitemaps.urlset', compact('urls'))->render();
+        return $this->xmlResponse($xml);
+    }
+
     private function xmlResponse($xml)
     {
         return response($xml, 200)
@@ -134,5 +253,10 @@ class SitemapController extends Controller
             return now()->toAtomString();
         }
         return date('c', strtotime($value));
+    }
+
+    private function normalizeSlug($slug)
+    {
+        return trim((string) $slug, " \t\n\r\0\x0B/");
     }
 }
