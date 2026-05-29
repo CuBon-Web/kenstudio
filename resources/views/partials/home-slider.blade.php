@@ -40,7 +40,7 @@
                         <div class="bottom-content">
                            @if($slide->description)
                            <div class="antra-desc" data-animation="antra-fadeInUp" data-delay="1000ms" data-duration="1400ms">
-                              <p>{!! nl2br(e($slide->description)) !!}</p>
+                              <p>{!! $slide->description !!}</p>
                            </div>
                            
                            @endif
