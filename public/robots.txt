@@ -4,4 +4,4 @@ Disallow: /crm
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://covyshrimp.com/sitemap.xml
+Sitemap: https://kenvisualworks.com/sitemaps.xml

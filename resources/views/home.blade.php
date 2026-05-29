@@ -26,7 +26,7 @@
            <div class="shape">@include('partials.img', ['src' => '/frontend/img/section-heading.png', 'alt' => 'shape'])</div>
            <div class="col-lg-4 col-md-12">
                <div class="section-heading mb-0">
-                   <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">About KEN VISUAL</h4>
+                   <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">About KEN VISUAL WORKS</h4>
                </div>
            </div>
            <div class="col-lg-8 col-md-12">
@@ -92,7 +92,7 @@
            </div>
            <div class="col-lg-8 col-md-12">
                <div class="section-heading section-heading-2 mb-0 white-content">
-                   <h2 class="section-title cursor-effect  title-2">Why choose KEN VISUAL?</h2>
+                   <h2 class="section-title cursor-effect  title-2">Why choose KEN VISUAL WORKS?</h2>
                </div>
            </div>
        </div>

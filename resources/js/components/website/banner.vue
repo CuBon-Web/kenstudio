@@ -91,8 +91,7 @@
                   </div>
                   <div class="form-group">
                     <label>Mô tả</label>
-                    <vs-input
-                      type="text"
+                    <TinyMce
                       v-model="item.description"
                       size="default"
                       placeholder="Mô tả banner"
@@ -133,7 +132,7 @@
 
 <script>
 import { mapActions } from "vuex";
-
+import TinyMce from "../_common/tinymce";
 const defaultBanner = () => ({
   image: "",
   type: "image",
@@ -150,6 +149,9 @@ export default {
     return {
       objData: [defaultBanner()],
     };
+  },
+  components: {
+    TinyMce,
   },
   methods: {
     ...mapActions(["saveBanner", "loadings", "listBanner"]),

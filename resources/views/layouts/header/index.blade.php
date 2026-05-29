@@ -1,6 +1,6 @@
  <!-- preloader -->
  <div class="preloader overflow-hidden">
-     <div class="site-name"><span>KEN VISUAL</span></div>
+     <div class="site-name"><span>KEN VISUAL WORKS</span></div>
      <div class="preloader-gutters">
          <div class="bar">
              <div class="inner-bar"></div>

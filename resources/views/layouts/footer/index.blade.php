@@ -49,7 +49,7 @@
     <div class="copyright-area">
        <div class="container">
           <div class="copyright-content">
-             <p>© 2025 KEN VISUALS. All Rights Reserved.</p>
+             <p>© 2025 KEN VISUAL WORKS. All Rights Reserved.</p>
           </div>
        </div>
     </div>
