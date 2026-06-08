@@ -82,11 +82,11 @@
                      <!-- /.header-menu-wrap -->
                  </div>
                  <div class="header-right-wrap">
-                     <a href="tel:{{$setting->phone1}}" class="header-contact">
-                         <span class="icon"><i class="fa-regular fa-phone"></i></span>
+                     <a href="mailto:{{$setting->email}}" class="header-contact">
+                         <span class="icon"><i class="fa-regular fa-envelope"></i></span>
                          <span class="content">
-                             <span class="call-text">Call Us Phone</span>
-                             <span class="call-number">{{$setting->phone1}}</span>
+                             <span class="call-text">Send Mail</span>
+                             <span class="call-number">{{$setting->email}}</span>
                          </span>
                      </a>
                      <div class="header-btn-wrap">

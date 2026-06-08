@@ -92,7 +92,7 @@
            </div>
            <div class="col-lg-8 col-md-12">
                <div class="section-heading section-heading-2 mb-0 white-content">
-                   <h2 class="section-title cursor-effect  title-2">Why choose KEN VISUAL WORKS?</h2>
+                   <h2 class="section-title cursor-effect  title-2">Why Professional Photographers Choose KEN VISUAL WORKS</h2>
                </div>
            </div>
        </div>
@@ -234,7 +234,7 @@
          <div class="col-lg-3 col-md-6 fade-top col-6">
             <div class="counter-item">
                <h3 class="title"><span class="odometer" data-count="265">0</span><span class="icon">+</span></h3>
-               <h4 class="sub-title">Skilled Tradespeople</h4>
+               <h4 class="sub-title">Professional Editors</h4>
             </div>
          </div>
          <div class="col-lg-3 col-md-6 fade-top col-6">
@@ -379,12 +379,12 @@
          <div class="shape">@include('partials.img', ['src' => '/frontend/img/section-heading.png', 'alt' => 'shape'])</div>
          <div class="col-lg-4 col-md-12">
             <div class="section-heading mb-0">
-               <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">Owr clients say</h4>
+               <h4 class="sub-heading" data-text-animation="fade-in-right" data-split="char" data-duration="0.9" data-stagger="0.03">Our clients say</h4>
             </div>
          </div>
          <div class="col-lg-8 col-md-12">
             <div class="section-heading section-heading-2 mb-0">
-               <h2 class="section-title cursor-effect title-2">Here's What <span>warm words <br> our clients</span> say</h2>
+               <h2 class="section-title cursor-effect title-2">What Our <span>Clients Say</span></h2>
             </div>
          </div>
       </div>
