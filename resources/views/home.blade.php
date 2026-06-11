@@ -221,26 +221,26 @@
       <div class="row gy-5 fade-wrapper">
          <div class="col-lg-3 col-md-6 fade-top col-6">
             <div class="counter-item">
-               <h3 class="title"><span class="odometer" data-count="22">0</span><span class="icon">+</span></h3>
+               <h3 class="title"><span class="odometer" data-count="10">0</span><span class="icon">+</span></h3>
                <h4 class="sub-title">Years experience</h4>
             </div>
          </div>
          <div class="col-lg-3 col-md-6 fade-top col-6">
             <div class="counter-item">
-               <h3 class="title"><span class="odometer" data-count="189">0</span><span class="icon">+</span></h3>
-               <h4 class="sub-title">Projects completed</h4>
+               <h3 class="title"><span class="odometer" data-count="10000">0</span><span class="icon">+</span></h3>
+               <h4 class="sub-title">Images Edited</h4>
             </div>
          </div>
          <div class="col-lg-3 col-md-6 fade-top col-6">
             <div class="counter-item">
-               <h3 class="title"><span class="odometer" data-count="265">0</span><span class="icon">+</span></h3>
-               <h4 class="sub-title">Professional Editors</h4>
+               <h3 class="title"><span class="odometer" data-count="100">0</span><span class="icon">+</span></h3>
+               <h4 class="sub-title"> Projects Completed</h4>
             </div>
          </div>
          <div class="col-lg-3 col-md-6 fade-top col-6">
             <div class="counter-item">
-               <h3 class="title"><span class="odometer" data-count="328">0</span><span class="icon">+</span></h3>
-               <h4 class="sub-title">Client satisfaction</h4>
+               <h3 class="title"><span class="odometer" data-count="100">0</span><span class="icon">%</span></h3>
+               <h4 class="sub-title">Client Satisfaction</h4>
             </div>
          </div>
       </div>
