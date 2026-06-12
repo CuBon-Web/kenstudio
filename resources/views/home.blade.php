@@ -444,7 +444,9 @@
             @foreach ($Partner as $item)
             <div class="swiper-slide">
                <div class="sponsor-item">
-                  <a href="{{ $item->link }}">{!! lazy_img($item->image, $item->name) !!}</a>
+                  <a href="{{ $item->link }}">
+                     <img style="width: 100%;" src="{{ $item->image }}" alt="{{ $item->name }}">
+                  </a>
                </div>
             </div>
             @endforeach
