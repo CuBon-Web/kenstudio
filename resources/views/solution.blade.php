@@ -129,6 +129,9 @@ $img = json_decode($solution->images);
 							   <textarea class="form-control" id="contact-infos" placeholder="Lời nhắn" name="contact-infos" cols="30" rows="10"></textarea>
 							</div>
 							<div class="col-12">
+							   @include('partials.recaptcha')
+							</div>
+							<div class="col-12">
 							   <button type="submit" class="btn btn--secondary">Gửi <i class="energia-arrow-right"></i></button>
 							</div>
 							<div class="col-12">

@@ -225,8 +225,9 @@
 										@endif
 										<div class="form-item message-item">
 											<label for="booking_cate_mess">Message</label>
-											<textarea id="booking_cate_mess" name="mess" cols="30" rows="4" class="form-control" placeholder="Mô tả nhu cầu của bạn..."></textarea>
+											<textarea id="booking_cate_mess" name="mess" cols="30" rows="4" class="form-control" placeholder="Mô tả nhu cầu của bạn...">{{ old('mess') }}</textarea>
 										</div>
+										@include('partials.recaptcha')
 										<div class="submit-btn">
 											<button class="tl-primary-btn" type="submit">
 												Send Request

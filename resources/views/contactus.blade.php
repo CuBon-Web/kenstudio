@@ -65,17 +65,23 @@ Contact Us
                 <div class="request-form-wrap">
                     <form action="{{route('postcontact')}}" method="post" id="ajax_contact" class="form-horizontal">
                         @csrf
+                        @if(session('success'))
+                        <div class="alert alert-success mb-3">{{ session('success') }}</div>
+                        @endif
+                        @if(session('error'))
+                        <div class="alert alert-danger mb-3">{{ session('error') }}</div>
+                        @endif
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="form-item">
                                     <h4 class="form-title">Full Name *</h4>
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="Designer">
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Designer" value="{{ old('name') }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-item">
                                     <h4 class="form-title">phone *</h4>
-                                    <input type="text" id="phone" name="phone" class="form-control" placeholder="{{$setting->phone1}}">
+                                    <input type="text" id="phone" name="phone" class="form-control" placeholder="{{$setting->phone1}}" value="{{ old('phone') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +89,7 @@ Contact Us
                             <div class="col-md-6">
                                 <div class="form-item">
                                     <h4 class="form-title">Email Address *</h4>
-                                    <input type="text" id="email" name="email" class="form-control" placeholder="{{$setting->email}}">
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="{{$setting->email}}" value="{{ old('email') }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -92,7 +98,7 @@ Contact Us
                                     <select name="service_id" id="service_id" class="form-control">
                                         <option value="">Select Service</option>
                                         @foreach ($servicehome as $item)
-                                            <option value="{{$item->id}}">{{languageName($item->name)}}</option>
+                                            <option value="{{$item->id}}" {{ (string) old('service_id') === (string) $item->id ? 'selected' : '' }}>{{languageName($item->name)}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -102,10 +108,11 @@ Contact Us
                             <div class="col-md-12">
                                 <div class="form-item message-item">
                                     <h4 class="form-title">Write Message *</h4>
-                                    <textarea id="mess" name="mess" cols="30" rows="5" class="form-control address" placeholder="Your message.."></textarea>
+                                    <textarea id="mess" name="mess" cols="30" rows="5" class="form-control address" placeholder="Your message.." required>{{ old('mess') }}</textarea>
                                 </div>
                             </div>
                         </div>
+                        @include('partials.recaptcha')
                         <div class="submit-btn">
                             <button id="submit" class="tl-primary-btn" type="submit">Send Message <span class="icon"><i class="fa-regular fa-arrow-right"></i></span></button>
                         </div>

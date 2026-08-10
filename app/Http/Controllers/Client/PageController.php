@@ -29,6 +29,7 @@ use Mail;
 use App\Mail\ContactNotificationMail;
 use App\models\ReviewCus;
 use App\models\website\Setting;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller
@@ -62,6 +63,32 @@ class PageController extends Controller
         }
 
         Mail::to($emails)->send(new ContactNotificationMail($contact));
+    }
+
+    private function verifyRecaptcha(Request $request)
+    {
+        $secret = config('services.recaptcha.secret_key');
+        if (empty($secret)) {
+            return true;
+        }
+
+        $token = $request->input('g-recaptcha-response');
+        if (!$token) {
+            return false;
+        }
+
+        try {
+            $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret' => $secret,
+                'response' => $token,
+                'remoteip' => $request->ip(),
+            ]);
+
+            return (bool) $response->json('success');
+        } catch (\Exception $e) {
+            Log::error('reCAPTCHA verify failed', ['message' => $e->getMessage()]);
+            return false;
+        }
     }
 
     public function sendmail(Request $request) {
@@ -263,6 +290,13 @@ class PageController extends Controller
         return view('search_result',$data);
     }
     public function postcontact(Request $request){
+        if (!$this->verifyRecaptcha($request)) {
+            return back()
+                ->withInput()
+                ->withErrors(['g-recaptcha-response' => 'Please confirm you are not a robot.'])
+                ->with('error', 'Captcha verification failed. Please try again.');
+        }
+
         $data = new MessContact();
         $data->name = $request->name ?: $request->fullname;
         $data->email = $request->email;

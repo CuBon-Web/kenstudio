@@ -71,6 +71,9 @@ Liên hệ với chúng tôi
 								</fieldset>
 							</div>
 							<div class="col-sm-12 col-xs-12">
+								@include('partials.recaptcha')
+							</div>
+							<div class="col-sm-12 col-xs-12">
 								<div class="pull-xs-left" style="margin-top:20px;">
 									<button type="submit" class="btn btn-blues btn-style btn-style-active">Gửi tin nhắn</button>
 								</div> 

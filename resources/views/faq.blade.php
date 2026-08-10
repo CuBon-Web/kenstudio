@@ -67,6 +67,9 @@ Câu hỏi thường gặp
                                 <input class="form-control" id="contact-infos" placeholder="Nội dung câu hỏi" name="contact-infos" cols="30" rows="10">
                              </div>
                              <div class="col-12">
+                                @include('partials.recaptcha')
+                             </div>
+                             <div class="col-12">
                                 <button type="submit" class="btn btn--secondary">Gửi <i class="energia-arrow-right"></i></button>
                              </div>
                              <div class="col-12">

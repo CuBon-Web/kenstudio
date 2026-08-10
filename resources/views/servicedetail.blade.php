@@ -166,8 +166,9 @@
 										</div>
 										<div class="form-item message-item">
 											<label for="booking_mess">Message</label>
-											<textarea id="booking_mess" name="mess" cols="30" rows="4" class="form-control" placeholder="Describe your request..."></textarea>
+											<textarea id="booking_mess" name="mess" cols="30" rows="4" class="form-control" placeholder="Describe your request...">{{ old('mess') }}</textarea>
 										</div>
+										@include('partials.recaptcha')
 										<div class="submit-btn">
 											<button class="tl-primary-btn" type="submit">
 												Send Request

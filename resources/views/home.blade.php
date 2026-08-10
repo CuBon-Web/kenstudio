@@ -563,7 +563,8 @@
             <input type="text" name="name" class="form-control" placeholder="Your Name *" required>
             <input type="email" name="email" class="form-control" placeholder="Email *" required>
             <input type="tel" name="phone" class="form-control" placeholder="Phone *" required>
-            <textarea name="mess" class="form-control" rows="3" placeholder="Message"></textarea>
+            <textarea name="mess" class="form-control" rows="3" placeholder="Message">{{ old('mess') }}</textarea>
+            @include('partials.recaptcha')
             <button type="submit" aria-label="Start Free Trial">Start Free Trial <i class="fa-regular fa-arrow-right-long"></i></button>
          </form>
       </div>
